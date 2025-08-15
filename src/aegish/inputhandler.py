@@ -17,6 +17,7 @@ class InputHandler:
         parser.add_argument('text', nargs='*', help='The natural language command to convert')
         parser.add_argument('--system-prompt', default=None, help=f'System prompt to prepend to the user prompt (default: {DEFAULT_SYSTEM_PROMPT})')
         parser.add_argument('--print-only', action='store_true', help='Only print the generated command, do not run it')
+        parser.add_argument('--no-safety', action='store_true', help='Disable safety checks on generated commands')
         parser.add_argument('--configure', action='store_true', help='Configure default model and system prompt')
         parser.add_argument('--model', default=None, help=f'Model to use (default: `{DEFAULT_MODEL})')
         args = parser.parse_args()

@@ -27,18 +27,17 @@ def main():
 		print(f"Ollama error: {e}", file=sys.stderr)
 		sys.exit(3)
 
-	# Safety check on output command
+	# Interactive safety confirmation
 	if not args.no_safety:
-		ok, reason = SafetyChecker.check(command)
-		if not ok:
-			print(f"Blocked by safety check (output): {reason}", file=sys.stderr)
-			sys.exit(2)
+		print("\033[1;33m\nCommand:\033[0m", command)
+		confirm = input("\033[1mPress Enter to run, or type 'n' to cancel: \033[0m").strip().lower()
+		if confirm and confirm != 'y':
+			print("\033[31mCommand cancelled.\033[0m")
+			sys.exit(0)
 
 	if args.print_only:
 		print(command)
 		return
-	
-
 
 	CommandRunner.run(command)
 

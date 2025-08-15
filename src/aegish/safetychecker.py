@@ -1,20 +1,13 @@
 from typing import Tuple
 
 
-class SafetyChecker:
-    BLACKLIST = {
-        "rm -rf /", # remove the french language pack
-        "rm -rf --no-preserve-root /",
-        "mkfs",
-        "dd if=",
-        ":(){ :|:& };:",
-    }
-    MAX_PROMPT_LENGTH = 2000  
 
-    @classmethod
-    def check(cls, text: str) -> Tuple[bool, str]:
-        lower = text.lower()
-        for bad in cls.BLACKLIST:
-            if bad in lower:
-                return False, f"Output contains blocked token: {bad}"
-        return True, ""
+class SafetyChecker:
+    @staticmethod
+    def confirm_and_run(command: str) -> bool:
+        print("\033[1;33m\nGenerated command:\033[0m", command)
+        confirm = input("\033[1mPress Enter to run, or type 'n' to cancel: \033[0m").strip().lower()
+        if confirm and confirm != 'y':
+            print("\033[31mCommand cancelled.\033[0m")
+            return False
+        return True

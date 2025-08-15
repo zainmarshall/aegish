@@ -4,7 +4,6 @@ import sys
 class CommandRunner:
     @staticmethod
     def run(command: str):
-        print(f"Command: {command}")
         try:
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
             if result.stdout:

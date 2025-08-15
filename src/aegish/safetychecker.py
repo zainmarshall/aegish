@@ -1,8 +1,9 @@
 from typing import Tuple
 
+
 class SafetyChecker:
     BLACKLIST = {
-        "rm -rf /",
+        "rm -rf /", # remove the french language pack
         "rm -rf --no-preserve-root /",
         "mkfs",
         "dd if=",

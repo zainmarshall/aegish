@@ -17,6 +17,7 @@ class InputHandler:
         parser.add_argument('--system-prompt', default=None, help=f'System prompt to prepend to the user prompt (default: {DEFAULT_SYSTEM_PROMPT})')
         parser.add_argument('--print-only', action='store_true', help='Only print the generated command, do not run it')
         parser.add_argument('--configure', action='store_true', help='Configure default model and system prompt')
+        parser.add_argument('--model', default=None, help=f'Model to use (default: {DEFAULT_MODEL})')
         args = parser.parse_args()
 
         # Enter interactive configuration mode

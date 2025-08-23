@@ -1,13 +1,13 @@
 import sys
 
-from aegish.Handlers.gemini import GeminiHandler
+from aegish.handlers.gemini import GeminiHandler
 from aegish.safetychecker import SafetyChecker
 from aegish.inputhandler import InputHandler
 from aegish.postprocess import PostProcessor
 from aegish.commandrunner import CommandRunner
-from aegish.Handlers.ollama import OllamaHandler
-from aegish.Handlers.chatgpt import OpenAIHandler
-from aegish.Handlers.claude import ClaudeHandler
+from aegish.handlers.ollama import OllamaHandler
+from aegish.handlers.chatgpt import OpenAIHandler
+from aegish.handlers.claude import ClaudeHandler
 from aegish.config import load_config
 from aegish.debug import print_debug
 

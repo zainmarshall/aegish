@@ -1,4 +1,5 @@
-# map providers to their models
+# A list of all the providers, models, and there api code names that aegish supports   
+# Used in config.py
 PROVIDERS = {
     "gemini": {
         "models": [

@@ -1,11 +1,16 @@
-from typing import Tuple
+# Color Codes
+BOLD = '\033[1m'
+YELLOW = '\033[33m'
+RED = '\033[31m'
+RESET = '\033[0m'
 
+# Prompt the user with the ai's generated command and makes sure they want to run it. 
 class SafetyChecker:
     @staticmethod
     def confirm_and_run(command: str) -> bool:
-        print("\033[1;33m\nGenerated command:\033[0m", command)
-        confirm = input("\033[1mPress Enter to run, or type 'n' to cancel: \033[0m").strip().lower()
+        print(f"{BOLD}{YELLOW}\nGenerated command:{RESET}", command)
+        confirm = input(f"{BOLD}Press Enter to run, or type 'n' to cancel: {RESET}").strip().lower()
         if confirm and confirm != 'y':
-            print("\033[31mCommand cancelled.\033[0m")
+            print(f"{RED}Command cancelled.{RESET}")
             return False
         return True

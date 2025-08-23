@@ -28,17 +28,16 @@ def main():
 		# Handle the ai providers
 		handler = None
 		response = None
-		match provider:
-			case 'gemini':
-				handler = GeminiHandler()
-			case 'ollama':
-				handler = OllamaHandler()
-			case 'openai':
-				handler = OpenAIHandler()
-			case 'claude':
-				handler = ClaudeHandler()
-			case _:
-				raise ValueError(f"Unknown provider: {provider}")
+		if(provider == 'gemini'):
+			handler = GeminiHandler()
+		elif(provider == 'ollama'):
+			handler = OllamaHandler()
+		elif(provider == 'openai'):
+			handler = OpenAIHandler()
+		elif(provider == 'claude'):
+			handler = ClaudeHandler()
+		else:
+			raise ValueError(f"Unknown provider: {provider}")
 
 		response = handler.generate(prompt)
 		print_debug(f"Raw response from {provider}: {response}")

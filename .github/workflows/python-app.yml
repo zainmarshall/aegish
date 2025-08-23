@@ -35,6 +35,12 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Write config for CI
+      run: |
+        mkdir -p ~/.config
+        echo '{"provider": "gemini", "model": {"api": "gemini-2.5-flash-lite", "name": "Gemini 2.5 Flash Lite"}, "api_key": "'$GEMINI_API_KEY'"}' > ~/.config/aegish.json
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
     - name: Test with pytest
       run: |
         pytest

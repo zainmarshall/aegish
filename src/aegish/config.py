@@ -1,7 +1,7 @@
 import os
 import json
 
-CONFIG_PATH = os.path.expanduser("./aegish.json")
+CONFIG_PATH = os.path.expanduser("~/.config/aegish.json")
 DEFAULT_SYSTEM_PROMPT = (
     "You are an expert Linux assistant. Convert the user's natural language request into a safe, correct Linux shell command. "
     "If the request is ambiguous or incomplete, infer the most helpful and complete command. "

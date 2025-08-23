@@ -7,7 +7,7 @@ setup(
     package_dir={"": "src"},
     install_requires=[
         'openai',
-        'google-generativeai',
+        'google-genai',
         'anthropic',
         'ollama',
     ],

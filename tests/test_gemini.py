@@ -1,4 +1,4 @@
-from aegish.gemini import GeminiHandler
+from aegish.Handlers.gemini import GeminiHandler
 
 def test_gemini_handler():
     handler = GeminiHandler()

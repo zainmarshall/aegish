@@ -2,47 +2,64 @@
 #!/usr/bin/env python3
 
 import sys
+
 from aegish.gemini import GeminiHandler
 from aegish.safetychecker import SafetyChecker
 from aegish.inputhandler import InputHandler
 from aegish.postprocess import PostProcessor
 from aegish.commandrunner import CommandRunner
-from aegish.ollamahandler import OllamaHandler
+from aegish.ollama import OllamaHandler
+from aegish.chatgpt import OpenAIHandler
+from aegish.claude import ClaudeHandler
+from aegish.config import load_config
+from aegish.debug import print_debug
 
 
 
 def main():
 
+
 	# input
 	args, user_prompt = InputHandler.get()
 
-	# system prompt is now hardcoded here
+	config = load_config()
+	provider = config.get('provider', 'gemini')
+	model = config.get('model', 'gemini-pro')
+	api_key = config.get('api_key', None)
+
+	# system prompt
 	SYSTEM_PROMPT = "You are an expert Linux assistant. Convert the user's natural language request into a safe, correct Linux shell command. If the request is ambiguous or incomplete, infer the most helpful and complete command. For example, if the user says 'git commit', output 'git add . && git commit' to ensure all changes are included. Only output the command, and combine steps when it improves usability."
 	prompt = f"{SYSTEM_PROMPT}\nUser: {user_prompt}"
 
-	gemini = True
-
 	try:
-		if gemini:
-			gemini = GeminiHandler()
-			response = gemini.generate(prompt)
-			command = response.strip().split('\n', 1)[0].strip()
-			command = PostProcessor.clean(command)
+		handler = None
+		response = None
+		if provider == 'gemini':
+			handler = GeminiHandler()
+			response = handler.generate(prompt)
+		elif provider == 'ollama':
+			handler = OllamaHandler()
+			response = handler.generate(prompt)
+		elif provider == 'openai':
+			handler = OpenAIHandler()
+			response = handler.generate(prompt)
+		elif provider == 'claude':
+			handler = ClaudeHandler()
+			response = handler.generate(prompt)
 		else:
-			ollama = OllamaHandler(args.model)
-			response = ollama.generate(prompt)
-		
+			raise ValueError(f"Unknown provider: {provider}")
+
+		print_debug(f"Raw response from {provider}: {response}")
+
+		command = PostProcessor.clean(response)
+
 	except Exception as e:
-		print(f"Gemini error: {e}", file=sys.stderr)
+		print(f"Provider error: {e}", file=sys.stderr)
 		sys.exit(3)
 
-	# Saftey
-	if not args.no_safety:
-		print("\033[1;33m\nCommand:\033[0m", command)
-		confirm = input("\033[1mPress Enter to run, or type 'n' to cancel: \033[0m").strip().lower()
-		if confirm and confirm != 'y':
-			print("\033[31mCommand cancelled.\033[0m")
-			sys.exit(0)
+	# Safety check
+	if not args.no_safety and not SafetyChecker.confirm_and_run(command):
+		sys.exit(0)
 
 	# Prinot only should just only print
 	if args.print_only:

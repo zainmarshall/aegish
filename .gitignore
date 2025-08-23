@@ -1,3 +1,5 @@
+# Local config
+aegish.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -63,3 +65,4 @@ src/aegish.egg-info/
 
 # Custom
 parts/
+

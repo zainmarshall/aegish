@@ -3,9 +3,12 @@ import subprocess
 import shutil
 
 # it handles ollama... genius naming right?
+
 class OllamaHandler:
-    def __init__(self, model: str):
-        self.model = model
+    def __init__(self):
+        from aegish.config import load_config
+        config = load_config()
+        self.model = config["model"]["api"]
         self.exe = shutil.which("ollama")
         if not self.exe:
             raise FileNotFoundError("ollama CLI not found")

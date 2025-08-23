@@ -1,7 +1,5 @@
 from typing import Tuple
 
-
-
 class SafetyChecker:
     @staticmethod
     def confirm_and_run(command: str) -> bool:

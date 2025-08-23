@@ -14,7 +14,12 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.7"
-dependencies = []
+dependencies = [
+    "openai",
+    "google-generativeai",
+    "anthropic",
+    "ollama"
+]
 license = { text = "MIT" }
 
 [project.scripts]

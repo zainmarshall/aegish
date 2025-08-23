@@ -6,7 +6,12 @@ setup(
     version='0.1.0',
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    install_requires=[],
+    install_requires=[
+        'openai',
+        'google-generativeai',
+        'anthropic',
+        'ollama',
+    ],
     entry_points={
         'console_scripts': [
             'ag = aegish.main:main',

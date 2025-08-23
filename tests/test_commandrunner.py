@@ -11,4 +11,4 @@ def test_commandrunner_echo():
     runner.run('echo Hello World')
     sys.stdout = sys_stdout
     output = captured_out.getvalue()
-    assert 'Hello Wrold' in output
+    assert 'Hello World' in output

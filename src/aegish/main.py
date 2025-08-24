@@ -46,6 +46,7 @@ def main():
 
 	except Exception as e:
 		print(f"Provider error: {e}", file=sys.stderr)
+		print(f"Have you run ag --config and saved your preferences? Aegish won't work until you have done so.")
 		sys.exit(3)
 
 	# Safety check

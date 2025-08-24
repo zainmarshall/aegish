@@ -14,6 +14,7 @@ def load_config():
     if os.path.exists(CONFIG_PATH):
         with open(CONFIG_PATH, 'r') as f:
             return json.load(f)
+    print("Please run 'ag --config'")
     return {}
 
 def save_config(config):

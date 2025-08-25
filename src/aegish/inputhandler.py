@@ -28,7 +28,7 @@ class InputHandler:
 
         # If the text is blank, with no text
         if not args.text:
-            print("No input provided. Usage: ag <command>", file=sys.stderr)
+            print("No input provided. Usage: ag <command> \n Use ag --help to view flags. \n Make sure you run ag --config before first usage", file=sys.stderr)
             sys.exit(1)
 
         user_prompt = ' '.join(args.text).strip() if args.text else sys.stdin.read().strip()

@@ -22,6 +22,11 @@ def main():
 	
 	# system prompt
 	SYSTEM_PROMPT = "You are an expert Linux assistant. Convert the user's natural language request into a safe, correct Linux shell command. If the request is ambiguous or incomplete, infer the most helpful and complete command. For example, if the user says 'git commit', output 'git add . && git commit' to ensure all changes are included. Only output the command, and combine steps when it improves usability."
+
+	# if the config contains a custom system prompt use that else use this
+	if 'system_prompt' in config:
+		SYSTEM_PROMPT = config.get('system_prompt')
+
 	prompt = f"{SYSTEM_PROMPT}\nUser: {user_prompt}"
 
 	try:

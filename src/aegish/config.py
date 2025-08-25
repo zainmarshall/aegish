@@ -2,12 +2,6 @@ import os
 import json
 
 CONFIG_PATH = os.path.expanduser("~/.config/aegish.json")
-DEFAULT_SYSTEM_PROMPT = (
-    "You are an expert Linux assistant. Convert the user's natural language request into a safe, correct Linux shell command. "
-    "If the request is ambiguous or incomplete, infer the most helpful and complete command. "
-    "For example, if the user says 'git commit', output 'git add . && git commit' to ensure all changes are included. "
-    "Only output the command, and combine steps when it improves usability."
-)
 
 
 def load_config():
@@ -76,3 +70,36 @@ def configure_interactive():
         config.pop('api_key', None)
     save_config(config)
     print(f"\n{GREEN}✔ Configuration saved successfully!{RESET}\n")
+
+
+def configure_system_prompt():
+    BOLD = '\033[1m'
+    CYAN = '\033[36m'
+    GREEN = '\033[32m'
+    RESET = '\033[0m'
+    YELLOW = '\033[33m'
+
+    config = load_config()
+    print(f"\n{BOLD}{CYAN}=== System Prompt Configuration ==={RESET}")
+    print(f"{YELLOW}What do you want to do? Press the corresponding number{RESET}")
+    print(f"{BOLD}1.{RESET} Change System Prompt")
+    print(f"{BOLD}2.{RESET} Reset System Prompt to default")
+
+    while True:
+        
+        choice = (input(f"{BOLD}Choice (1/2){RESET}: ") or '').strip()
+        if choice in ('1', '2'):
+            break
+        print(f"{YELLOW}Invalid choice. Please enter 1 or 2.{RESET}")
+
+    if choice == '1':
+        # change the system prompt in the json
+        prompt = input(f"{BOLD}Enter the new system prompt:{RESET} ")
+        config['system_prompt'] = prompt
+        save_config(config)
+        print(f"{GREEN}✔ System prompt updated successfully.{RESET}")
+    else:
+        # remove the system prompt from the config file to reset to default
+        config.pop('system_prompt', None)
+        save_config(config)
+        print(f"{GREEN}✔ System prompt reset to default.{RESET}")

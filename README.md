@@ -17,10 +17,10 @@ Cloud Providers: ChatGPT (OpenAI), Gemini (Google), Claude (Anthropic)
 
 ## Installation
 
-### Install directly from GitHub
+### Install using pip
 
 ```
-pip install git+https://github.com/zainmarshall/aegish.git
+pip install aegish
 ```
 
 After installation, use the `ag` configure command to choose local or cloud ai, to choose models, and to save api keys:

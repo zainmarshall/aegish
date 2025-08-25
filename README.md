@@ -17,7 +17,7 @@ Cloud Providers: ChatGPT (OpenAI), Gemini (Google), Claude (Anthropic)
 
 ## Installation
 
-### Install directly from GitHub
+### Install using pip
 
 ```
 pip install aegish

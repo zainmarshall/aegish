@@ -1,13 +1,6 @@
 import sys
 
-from aegish.gemini import GeminiHandler
-from aegish.safetychecker import SafetyChecker
 from aegish.inputhandler import InputHandler
-from aegish.postprocess import PostProcessor
-from aegish.commandrunner import CommandRunner
-from aegish.ollama import OllamaHandler
-from aegish.chatgpt import OpenAIHandler
-from aegish.claude import ClaudeHandler
 from aegish.config import load_config
 from aegish.debug import print_debug
 
@@ -33,13 +26,18 @@ def main():
 		# Handle the ai providers
 		handler = None
 		response = None
+
 		if(provider == 'gemini'):
+			from aegish.gemini import GeminiHandler
 			handler = GeminiHandler()
 		elif(provider == 'ollama'):
+			from aegish.ollama import OllamaHandler
 			handler = OllamaHandler()
 		elif(provider == 'openai'):
+			from aegish.chatgpt import OpenAIHandler
 			handler = OpenAIHandler()
 		elif(provider == 'claude'):
+			from aegish.claude import ClaudeHandler
 			handler = ClaudeHandler()
 		else:
 			raise ValueError(f"Unknown provider: {provider}")
@@ -47,6 +45,7 @@ def main():
 		response = handler.generate(prompt)
 		print_debug(f"Raw response from {provider}: {response}")
 
+		from aegish.postprocess import PostProcessor
 		command = PostProcessor.clean(response)
 
 	except Exception as e:
@@ -55,8 +54,10 @@ def main():
 		sys.exit(3)
 
 	# Safety check
-	if not args.no_safety and not SafetyChecker.confirm_and_run(command):
-		sys.exit(0)
+	if not args.no_safety:
+		from aegish.safetychecker import SafetyChecker
+		if not SafetyChecker.confirm_and_run(command):
+			sys.exit(0)
 
 	# Prinot only should just only print
 	if args.print_only:
@@ -64,6 +65,7 @@ def main():
 		return
 
 	# Run the command
+	from aegish.commandrunner import CommandRunner 
 	CommandRunner.run(command)
 
 

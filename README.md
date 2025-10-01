@@ -1,5 +1,8 @@
 # aegish
 [![Python application](https://github.com/zainmarshall/aegish/actions/workflows/python-app.yml/badge.svg)](https://github.com/zainmarshall/aegish/actions/workflows/python-app.yml)
+[![Upload Python Package](https://github.com/zainmarshall/aegish/actions/workflows/python-publish.yml/badge.svg)](https://github.com/zainmarshall/aegish/actions/workflows/python-publish.yml)
+
+
 Write linux commands in natural language using the power of local ai!
 
 You can use aegish in two modes: Local or Cloud. Local uses ollama to run models on your device, whereas cloud uses your api key to make a request to a cloud provider.
